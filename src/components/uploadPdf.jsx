@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CloseIcon from '../assets/closeIcon.png';
 import Modal from 'react-modal';
+import OpenIcon from '../assets/openIcon.png';
 import PdfIcon from '../assets/pdfIcon.png';
 import { PdfViewer } from './PdfViewer';
 import axios from 'axios';
@@ -85,14 +86,12 @@ const UploadPDF = () => {
           <div className='bg-gray-300 rounded-lg p-4 flex flex-row gap-x-[10px] items-center'>
             <img src={PdfIcon} alt='icon' className='h-[30px] w-[30px]' />
             <p className='text-[18px] font-bold'>{file.name}</p>
-            <button
+            <img
+              src={OpenIcon}
+              alt='icon'
+              className='h-[40px] w-[40px] cursor-pointer'
               onClick={handlePdfOpen}
-              class='relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-black focus:outline-none'
-            >
-              <span class='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-white rounded-md group-hover:bg-opacity-0'>
-                View Resume
-              </span>
-            </button>
+            />
             <img
               src={CloseIcon}
               alt='icon'
