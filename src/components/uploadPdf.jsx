@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
 import CloseIcon from '../assets/closeIcon.png';
+import Image from '../assets/image1.jpeg';
 import Modal from 'react-modal';
 import OpenIcon from '../assets/openIcon.png';
 import PdfIcon from '../assets/pdfIcon.png';
 import { PdfViewer } from './PdfViewer';
 import axios from 'axios';
 
-const UploadPDF = () => {
+const UploadPDF = ({ setJobs }) => {
   const [file, setFile] = useState(null);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handlePdfOpen = () => {
     setIsPdfOpen(true);
   };
@@ -21,7 +23,7 @@ const UploadPDF = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const formData = new FormData();
     formData.append('pdfFile', file);
 
@@ -30,18 +32,18 @@ const UploadPDF = () => {
         'http://127.0.0.1:5000/upload',
         formData
       );
-      console.log(response.data);
-      // Handle success or display a message to the user
+      setJobs(response.data);
+      setLoading(false);
     } catch (error) {
       console.error('Error uploading PDF:', error);
-      // Handle error or display an error message to the user
     }
   };
 
   return (
     <>
-      {!file ? (
-        <form onSubmit={handleSubmit}>
+      <img src={Image} alt='icons' />
+      {!file && !loading ? (
+        <form onSubmit={handleSubmit} id='file-upload'>
           <div class='flex items-center justify-center w-[300px] '>
             <label
               for='dropzone-file'
@@ -81,7 +83,7 @@ const UploadPDF = () => {
             </label>
           </div>
         </form>
-      ) : (
+      ) : file && !loading ? (
         <div className=''>
           <div className='bg-gray-300 rounded-lg p-4 flex flex-row gap-x-[10px] items-center'>
             <img src={PdfIcon} alt='icon' className='h-[30px] w-[30px]' />
@@ -106,6 +108,15 @@ const UploadPDF = () => {
           >
             Recommend Jobs
           </button>
+        </div>
+      ) : (
+        <div>
+          <iframe
+            title='gif'
+            src='https://giphy.com/embed/SF5MyECNTsEBGm0Hx3'
+            width='480'
+            height='480'
+          ></iframe>
         </div>
       )}
       <Modal isOpen={isPdfOpen}>
