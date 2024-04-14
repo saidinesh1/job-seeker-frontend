@@ -112,6 +112,7 @@ const UploadPDF = ({ setJobs }) => {
       ) : (
         <div>
           <iframe
+            className='pointer-events-none'
             title='gif'
             src='https://giphy.com/embed/SF5MyECNTsEBGm0Hx3'
             width='480'
